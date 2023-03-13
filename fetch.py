@@ -86,10 +86,12 @@ else:
         if not os.path.exists('results'):
           os.mkdir('results')
 
-        if not os.path.exists('results' + '\\' + urlObj.netloc):
-          os.mkdir('results' + '\\' + urlObj.netloc)
+        path1_tmp = os.path.join('results', urlObj.netloc)
+        if not os.path.exists(path1_tmp):
+          os.mkdir(path1_tmp)
 
-        os.mkdir('results' + '\\' + urlObj.netloc + '\\' + lastFetched)
+        path2_tmp = os.path.join('results', urlObj.netloc, lastFetched)
+        os.mkdir(path2_tmp)
 
         filename = 'index.html' if urlObj.path == '/' or urlObj.path == '' else urlObj.path[1:] + '.html'
 
@@ -112,7 +114,7 @@ else:
           else:
             hrefs.append(urlObj.netloc + aTag['href'])
 
-        with open('results' + '\\' + urlObj.netloc + '\\' + lastFetched + '\\' + filename, 'wb') as f:
+        with open(os.path.join('results', urlObj.netloc, lastFetched, filename), 'wb') as f:
           f.write(content)
 
         with open(urlObj.netloc + '.html', 'wb') as f:
